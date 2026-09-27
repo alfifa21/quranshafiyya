@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tahfidz Qur'an Shafiyya — Program Tahsin & Tahfizh Online</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pink-50:#fff5f8;
+    --pink-100:#fde8ef;
+    --pink-200:#fbd2e0;
+    --pink-300:#f6aecb;
+    --pink-400:#ef85ae;
+    --pink-500:#e2578c;
+    --pink-600:#c93d72;
+    --pink-700:#a72c5c;
+    --pink-800:#7d1f45;
+    --ink:#4a2035;
+    --ink-soft:#7a4a63;
+    --gold:#d7a441;
+    --white:#ffffff;
+    --shadow: 0 10px 30px rgba(169, 47, 100, 0.12);
+    --shadow-sm: 0 4px 14px rgba(169, 47, 100, 0.10);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth; scroll-padding-top:100px;}
+  section[id], div[id]{scroll-margin-top:100px;}
+  body{
+    margin:0;
+    font-family:'Poppins', sans-serif;
+    color:var(--ink);
+    background:
+      radial-gradient(circle at 8% 8%, var(--pink-100) 0%, transparent 35%),
+      radial-gradient(circle at 95% 15%, var(--pink-100) 0%, transparent 30%),
+      radial-gradient(circle at 90% 85%, var(--pink-100) 0%, transparent 32%),
+      var(--pink-50);
+    background-attachment:fixed;
+    line-height:1.65;
+    overflow-x:hidden;
+  }
+  img,svg{max-width:100%; display:block;}
+  a{color:inherit;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 20px;}
+  .script{font-family:'Dancing Script', cursive;}
+  .serif{font-family:'Playfair Display', serif;}
+
+  /* ---------- Scroll reveal ---------- */
+  .reveal{opacity:0; transform:translateY(26px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in-view{opacity:1; transform:translateY(0);}
+  .reveal-scale{opacity:0; transform:scale(.92); transition:opacity .6s ease, transform .6s ease;}
+  .reveal-scale.in-view{opacity:1; transform:scale(1);}
+
+  /* ---------- Floating petals (hero decoration) ---------- */
+  .petal-field{position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:1;}
+  .petal{
+    position:absolute; top:-40px; font-size:18px; opacity:.75;
+    animation-name:petal-fall; animation-timing-function:ease-in; animation-iteration-count:infinite;
+    will-change:transform, opacity;
+  }
+  @keyframes petal-fall{
+    0%{transform:translateY(0) translateX(0) rotate(0deg); opacity:0;}
+    8%{opacity:.85;}
+    100%{transform:translateY(340px) translateX(var(--drift,30px)) rotate(320deg); opacity:0;}
+  }
+  .blossom{position:absolute; opacity:.35; pointer-events:none; animation:blossom-spin 40s linear infinite;}
+  @keyframes blossom-spin{from{transform:rotate(0deg);} to{transform:rotate(360deg);}}
+  .blossom svg{width:100%; height:100%;}
+
+  /* ---------- NAV ---------- */
+  header.nav{
+    position:sticky; top:0; z-index:80;
+    background:rgba(255,255,255,0.85);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--pink-200);
+  }
+  .nav-inner{
+    max-width:1080px; margin:0 auto; padding:14px 20px;
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+  }
+  .brand{display:flex; align-items:center; gap:10px; font-weight:700; color:var(--pink-700);}
+  .brand-mark{
+    width:38px; height:38px; border-radius:50%;
+    background:linear-gradient(135deg, var(--pink-400), var(--pink-600));
+    display:flex; align-items:center; justify-content:center; color:#fff; font-size:18px;
+    flex-shrink:0; animation:mark-pulse 3.5s ease-in-out infinite;
+  }
+  .brand{min-width:0;}
+  .brand-text{min-width:0;}
+  @keyframes mark-pulse{0%,100%{box-shadow:0 0 0 0 rgba(226,87,140,.35);} 50%{box-shadow:0 0 0 8px rgba(226,87,140,0);}}
+  .brand-text{font-family:'Playfair Display', serif; font-size:17px; line-height:1.15;}
+  .brand-text small{display:block; font-family:'Poppins',sans-serif; font-weight:500; font-size:10.5px; color:var(--ink-soft); letter-spacing:.03em;}
+
+  .nav-links{display:flex; align-items:center; gap:22px; list-style:none; margin:0; padding:0;}
+  .nav-links a{
+    text-decoration:none; font-size:13.5px; font-weight:600; color:var(--ink-soft);
+    position:relative; padding:4px 2px; transition:color .2s ease;
+  }
+  .nav-links a::after{
+    content:""; position:absolute; left:0; bottom:-3px; width:0; height:2px;
+    background:var(--pink-600); transition:width .25s ease;
+  }
+  .nav-links a:hover{color:var(--pink-700);}
+  .nav-links a.active{color:var(--pink-700);}
+  .nav-links a.active::after{width:100%;}
+
+  .nav-cta{
+    background:linear-gradient(135deg, var(--pink-500), var(--pink-700));
+    color:#fff; text-decoration:none; padding:10px 18px; border-radius:999px;
+    font-weight:600; font-size:13.5px; white-space:nowrap; box-shadow:var(--shadow-sm);
+    transition:transform .15s ease; position:relative; overflow:hidden;
+    flex-shrink:0;
+  }
+  .nav-cta:hover{transform:translateY(-1px);}
+
+  /* progress bar under nav = scroll progress */
+  .scroll-progress{
+    position:sticky; top:0; z-index:81; height:3px; width:0%;
+    background:linear-gradient(90deg, var(--gold), var(--pink-500), var(--pink-700));
+    transition:width .1s linear;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative; overflow:hidden; padding:64px 0 56px;}
+  .hero .wrap{position:relative; z-index:2; text-align:center;}
+  .kicker{
+    display:inline-block; font-family:'Playfair Display', serif; font-size:13px; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--pink-700); background:var(--pink-100);
+    padding:6px 16px; border-radius:999px; margin-bottom:18px; border:1px solid var(--pink-200);
+  }
+  .hero h1{
+    font-family:'Playfair Display', serif; font-weight:800; color:var(--pink-700);
+    font-size:clamp(23px, 7vw, 50px); margin:0 0 10px; line-height:1.22;
+  }
+  .hero h1 span{display:block; font-size:.62em; font-weight:600; color:var(--ink); margin-top:6px;}
+  .pill-tag{
+    display:inline-flex; align-items:center; gap:6px; margin:14px 0 20px;
+    background:linear-gradient(135deg, var(--pink-500), var(--pink-700));
+    color:#fff; padding:8px 22px; border-radius:999px; font-weight:600; font-size:14px;
+    box-shadow:var(--shadow-sm); position:relative; overflow:hidden;
+  }
+  .pill-tag::after{
+    content:""; position:absolute; top:0; left:-60%; width:40%; height:100%;
+    background:linear-gradient(115deg, transparent, rgba(255,255,255,.55), transparent);
+    animation:shine 3.2s ease-in-out infinite;
+  }
+  @keyframes shine{0%{left:-60%;} 45%{left:130%;} 100%{left:130%;}}
+  .hero p.lead{
+    max-width:560px; margin:0 auto 30px; color:var(--ink-soft); font-size:16px;
+  }
+  .hero-ctas{display:flex; gap:14px; justify-content:center; flex-wrap:wrap;}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px; text-decoration:none;
+    font-weight:600; font-size:15px; padding:14px 26px; border-radius:999px;
+    transition:transform .15s ease, box-shadow .15s ease; border:none; cursor:pointer;
+    font-family:'Poppins', sans-serif; position:relative; overflow:hidden;
+  }
+  .btn-primary{
+    background:linear-gradient(135deg, #29b76b, #1f9e5b);
+    color:#fff; box-shadow:0 10px 24px rgba(31,158,91,0.28);
+  }
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 14px 28px rgba(31,158,91,0.34);}
+  .btn-outline{
+    background:#fff; color:var(--pink-700); border:1.5px solid var(--pink-300);
+  }
+  .btn-outline:hover{background:var(--pink-50); transform:translateY(-2px);}
+  .ripple{
+    position:absolute; border-radius:50%; background:rgba(255,255,255,.55);
+    transform:scale(0); animation:ripple-anim .6s ease-out forwards; pointer-events:none;
+  }
+  @keyframes ripple-anim{to{transform:scale(2.6); opacity:0;}}
+  .heart{color:var(--pink-400);}
+
+  /* ---------- STATS ---------- */
+  .stats{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:14px; max-width:820px; margin:38px auto 0;
+  }
+  .stat-card{
+    background:#fff; border:1px solid var(--pink-200); border-radius:16px; padding:16px 10px;
+    text-align:center; box-shadow:var(--shadow-sm);
+  }
+  .stat-num{
+    font-family:'Playfair Display', serif; font-weight:800; font-size:clamp(16px,4.2vw,28px);
+    color:var(--pink-700); line-height:1;
+  }
+  .stat-label{font-size:11.5px; color:var(--ink-soft); margin-top:6px; letter-spacing:.02em;}
+
+  /* ---------- SECTION shell ---------- */
+  section{padding:54px 0;}
+  .section-head{text-align:center; max-width:640px; margin:0 auto 36px;}
+  .eyebrow{
+    display:inline-block; font-size:12.5px; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--pink-600); font-weight:700; margin-bottom:8px;
+  }
+  .section-head h2{
+    font-family:'Playfair Display', serif; font-size:clamp(19px,5.5vw,34px);
+    color:var(--pink-700); margin:0 0 10px;
+  }
+  .section-head p{color:var(--ink-soft); font-size:15px; margin:0;}
+
+  .divider{
+    height:1px; max-width:1080px; margin:0 auto;
+    background:repeating-linear-gradient(90deg, var(--pink-300) 0 8px, transparent 8px 16px);
+    opacity:.6;
+  }
+
+  /* ---------- Requirements ---------- */
+  .req-grid{
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:16px; margin-top:10px;
+  }
+  .req-card{
+    background:#fff; border:1px solid var(--pink-200); border-radius:16px; padding:20px;
+    display:flex; gap:12px; align-items:flex-start; box-shadow:var(--shadow-sm);
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .req-card:hover{transform:translateY(-4px); box-shadow:var(--shadow);}
+  .req-icon{
+    width:36px; height:36px; border-radius:50%; background:var(--pink-100); color:var(--pink-600);
+    display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:16px;
+  }
+  .req-card p{margin:0; font-size:14.5px; color:var(--ink);}
+
+  /* ---------- Program tabs ---------- */
+  .tab-bar{
+    display:flex; justify-content:center; gap:8px; margin:0 auto 28px; background:#fff;
+    border:1px solid var(--pink-200); border-radius:999px; padding:6px; max-width:360px;
+    box-shadow:var(--shadow-sm); position:relative;
+  }
+  .tab-btn{
+    flex:1; border:none; background:transparent; cursor:pointer; padding:10px 14px;
+    border-radius:999px; font-family:'Poppins',sans-serif; font-weight:700; font-size:13.5px;
+    color:var(--ink-soft); position:relative; z-index:2; transition:color .25s ease;
+  }
+  .tab-btn.active{color:#fff;}
+  .tab-indicator{
+    position:absolute; top:6px; bottom:6px; left:6px; width:calc(50% - 6px);
+    background:linear-gradient(135deg, var(--pink-500), var(--pink-700)); border-radius:999px;
+    transition:transform .3s cubic-bezier(.65,.1,.35,1); z-index:1;
+  }
+  .tab-panel{display:none;}
+  .tab-panel.active{display:block; animation:tab-fade .4s ease;}
+  @keyframes tab-fade{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);}}
+
+  .track-note{
+    background:#fff; border:1px dashed var(--pink-300); border-radius:14px; padding:16px 18px;
+    font-size:13.8px; color:var(--ink-soft); margin-bottom:20px;
+  }
+  .track-note strong{color:var(--pink-700);}
+  .track-note ul{margin:0; padding:0; list-style:none;}
+  .track-note li{
+    display:flex; align-items:flex-start; gap:9px; margin-bottom:9px; line-height:1.55;
+  }
+  .track-note li:last-child{margin-bottom:0;}
+  .track-note .tn-ic{flex-shrink:0; line-height:1.55;}
+  .prog-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(270px,1fr)); gap:18px;}
+  .prog-card{
+    background:#fff; border-radius:18px; padding:22px; box-shadow:var(--shadow-sm);
+    border:1px solid var(--pink-200); position:relative; overflow:hidden;
+    transition:transform .3s ease, box-shadow .3s ease; cursor:pointer;
+  }
+  .prog-card:hover{transform:translateY(-6px); box-shadow:var(--shadow);}
+  .prog-card::before{
+    content:""; position:absolute; top:-30px; right:-30px; width:90px; height:90px;
+    background:var(--pink-100); border-radius:50%; transition:transform .4s ease;
+  }
+  .prog-card:hover::before{transform:scale(1.3);}
+  .prog-card h4{
+    font-family:'Playfair Display', serif; color:var(--pink-700); font-size:17.5px; margin:0 0 8px;
+    position:relative;
+  }
+  .prog-card p{margin:0 0 10px; font-size:14px; color:var(--ink-soft); position:relative;}
+  .prog-price{
+    display:inline-block; font-weight:700; color:var(--pink-700); background:var(--pink-100);
+    padding:5px 14px; border-radius:999px; font-size:13.5px; position:relative;
+  }
+  .prog-meta{font-size:12.5px; color:var(--pink-600); font-weight:600; margin-bottom:8px; position:relative;}
+  .prog-card.popular{border-color:var(--pink-400);}
+  .prog-card.popular .badge{
+    position:absolute; top:14px; right:14px; background:var(--gold); color:#fff; font-size:10.5px;
+    font-weight:700; padding:3px 10px; border-radius:999px; z-index:2;
+  }
+
+  section.tahsin-block{background:var(--pink-100); border-radius:28px; padding:44px 30px;}
+  section.tahsin-block .wrap{padding:0;}
+
+  /* ---------- Pricing table ---------- */
+  .price-table{
+    width:100%; border-collapse:separate; border-spacing:0; background:#fff;
+    border-radius:18px; overflow:hidden; box-shadow:var(--shadow);
+  }
+  .price-table th{
+    background:linear-gradient(135deg, var(--pink-600), var(--pink-700)); color:#fff;
+    text-align:left; padding:14px 18px; font-size:13.5px; letter-spacing:.03em;
+  }
+  .price-table td{padding:13px 18px; font-size:14px; border-bottom:1px solid var(--pink-100); transition:background .2s ease;}
+  .price-table tbody tr{transition:background .2s ease;}
+  .price-table tbody tr:hover{background:var(--pink-50);}
+  .price-table tr:last-child td{border-bottom:none;}
+  .price-table td.amount{font-weight:700; color:var(--pink-700); text-align:right; white-space:nowrap;}
+  .price-note{
+    text-align:center; margin-top:16px; font-size:13.5px; color:var(--ink-soft);
+    background:#fff; border:1px dashed var(--pink-300); display:inline-block; padding:10px 18px;
+    border-radius:12px;
+  }
+  .price-note-wrap{text-align:center;}
+
+  /* ---------- Extra activities ---------- */
+  .extra-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:16px;}
+  .extra-card{
+    background:#fff; border-radius:16px; padding:20px; text-align:center; box-shadow:var(--shadow-sm);
+    border:1px solid var(--pink-200); transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .extra-card:hover{transform:translateY(-4px) scale(1.02); box-shadow:var(--shadow);}
+  .extra-card .ic{font-size:26px; margin-bottom:8px; transition:transform .3s ease;}
+  .extra-card:hover .ic{transform:scale(1.15) rotate(-6deg);}
+  .extra-card h4{margin:0 0 6px; font-family:'Playfair Display', serif; color:var(--pink-700); font-size:16px;}
+  .extra-card p{margin:0; font-size:13.5px; color:var(--ink-soft);}
+
+  /* ---------- Terms accordion ---------- */
+  .accordion{display:flex; flex-direction:column; gap:12px;}
+  .acc-item{
+    background:#fff; border:1px solid var(--pink-200); border-radius:16px; overflow:hidden;
+    box-shadow:var(--shadow-sm);
+  }
+  .acc-head{
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    padding:16px 20px; cursor:pointer; user-select:none;
+  }
+  .acc-head h4{
+    margin:0; font-family:'Playfair Display', serif; color:var(--pink-700); font-size:16px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .acc-chevron{transition:transform .3s ease; color:var(--pink-500); font-size:14px;}
+  .acc-item.open .acc-chevron{transform:rotate(180deg);}
+  .acc-body{max-height:0; overflow:hidden; transition:max-height .35s ease;}
+  .acc-body-inner{padding:0 20px 18px;}
+  .acc-body-inner ul{margin:0; padding-left:0; list-style:none;}
+  .acc-body-inner li{display:flex; gap:10px; margin-bottom:10px; font-size:14px; color:var(--ink);}
+  .acc-body-inner li::before{content:"📍"; flex-shrink:0;}
+  .acc-body-inner li:last-child{margin-bottom:0;}
+
+  /* ---------- Registration wizard ---------- */
+  .reg-wrap{
+    background:#fff; border-radius:26px; padding:36px; box-shadow:var(--shadow);
+    border:1px solid var(--pink-200); max-width:720px; margin:0 auto;
+  }
+  .wizard-steps{display:flex; align-items:center; justify-content:center; margin-bottom:30px; gap:0;}
+  .wiz-step{display:flex; align-items:center;}
+  .wiz-circle{
+    width:32px; height:32px; border-radius:50%; background:var(--pink-100); color:var(--pink-500);
+    display:flex; align-items:center; justify-content:center; font-weight:700; font-size:13px;
+    border:2px solid var(--pink-200); transition:all .3s ease; flex-shrink:0;
+  }
+  .wiz-label{font-size:11.5px; font-weight:600; color:var(--ink-soft); margin-left:8px; white-space:nowrap;}
+  .wiz-line{width:36px; height:2px; background:var(--pink-200); margin:0 8px; transition:background .3s ease;}
+  .wiz-step.active .wiz-circle{background:var(--pink-600); color:#fff; border-color:var(--pink-600);}
+  .wiz-step.active .wiz-label{color:var(--pink-700);}
+  .wiz-step.done .wiz-circle{background:#29b76b; border-color:#29b76b; color:#fff;}
+  .wiz-step.done ~ .wiz-line, .wiz-step.done .wiz-line{background:#29b76b;}
+
+  .form-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  .form-grid .full{grid-column:1 / -1;}
+  label{display:block; font-size:13px; font-weight:600; color:var(--pink-700); margin-bottom:6px;}
+  input, select, textarea{
+    width:100%; padding:11px 14px; border-radius:12px; border:1.5px solid var(--pink-200);
+    font-family:'Poppins', sans-serif; font-size:14px; color:var(--ink); background:var(--pink-50);
+    transition:border-color .15s ease, box-shadow .15s ease;
+  }
+  input:focus, select:focus, textarea:focus{outline:none; border-color:var(--pink-400); background:#fff;}
+  input.error, select.error{border-color:#e3573f; animation:shake .3s ease;}
+  @keyframes shake{0%,100%{transform:translateX(0);} 25%{transform:translateX(-4px);} 75%{transform:translateX(4px);}}
+  textarea{resize:vertical; min-height:70px;}
+  .form-msg{
+    font-size:13px; color:var(--pink-700); background:var(--pink-100); border-radius:10px;
+    padding:10px 14px; margin-top:14px; display:none;
+  }
+  .form-msg.show{display:block;}
+  .form-submit{width:100%; justify-content:center; margin-top:18px; font-size:15.5px; padding:15px;}
+  .form-hint{font-size:12.5px; color:var(--ink-soft); text-align:center; margin-top:12px;}
+
+  .wiz-panel{display:none;}
+  .wiz-panel.active{display:block; animation:tab-fade .35s ease;}
+  .wiz-nav{display:flex; gap:12px; margin-top:22px;}
+  .wiz-nav .btn{flex:1; justify-content:center;}
+  .btn-ghost{background:var(--pink-50); color:var(--pink-700); border:1.5px solid var(--pink-200);}
+  .btn-ghost:hover{background:var(--pink-100);}
+
+  .review-box{background:var(--pink-50); border-radius:14px; padding:18px 20px; border:1px dashed var(--pink-300);}
+  .review-row{display:flex; justify-content:space-between; gap:10px; font-size:13.5px; padding:7px 0; border-bottom:1px solid var(--pink-200);}
+  .review-row:last-child{border-bottom:none;}
+  .review-row span:first-child{color:var(--ink-soft); font-weight:600;}
+  .review-row span:last-child{text-align:right; color:var(--ink); max-width:60%;}
+
+  /* ---------- Payment ---------- */
+  .pay-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:18px;}
+  .pay-card{
+    background:#fff; border-radius:18px; padding:22px; box-shadow:var(--shadow-sm);
+    border:1px solid var(--pink-200); text-align:center; position:relative; transition:transform .25s ease;
+  }
+  .pay-card:hover{transform:translateY(-4px);}
+  .pay-card .ic{font-size:28px; margin-bottom:10px;}
+  .pay-card h4{margin:0 0 6px; font-family:'Playfair Display', serif; color:var(--pink-700);}
+  .pay-num{
+    font-size:19px; font-weight:800; color:var(--pink-700); letter-spacing:.02em; margin:6px 0 2px;
+  }
+  .pay-name{font-size:13px; color:var(--ink-soft);}
+  .copy-btn{
+    margin-top:10px; font-size:11.5px; font-weight:700; color:var(--pink-600); background:var(--pink-100);
+    border:none; padding:6px 14px; border-radius:999px; cursor:pointer; transition:background .2s ease;
+  }
+  .copy-btn:hover{background:var(--pink-200);}
+  .pay-info{
+    text-align:center; max-width:560px; margin:26px auto 0; font-size:13.8px; color:var(--ink-soft);
+    background:var(--pink-100); border-radius:14px; padding:16px 20px;
+  }
+
+  /* ---------- Footer ---------- */
+  footer{
+    background:linear-gradient(135deg, var(--pink-700), var(--pink-800));
+    color:#fdeef3; padding:46px 0 30px; text-align:center; margin-top:20px;
+    position:relative; overflow:hidden;
+  }
+  footer .quote{
+    font-family:'Playfair Display', serif; font-style:italic; font-size:18px; max-width:560px;
+    margin:0 auto 18px; line-height:1.5; position:relative;
+  }
+  footer .quote small{display:block; font-family:'Poppins',sans-serif; font-style:normal; font-size:12px; opacity:.75; margin-top:6px;}
+  footer .tg{
+    display:inline-block; margin-top:10px; font-weight:600; font-size:14px; color:#fff;
+    background:rgba(255,255,255,0.14); padding:8px 18px; border-radius:999px; text-decoration:none;
+    transition:background .2s ease;
+  }
+  footer .tg:hover{background:rgba(255,255,255,0.24);}
+  footer .sign{margin-top:22px; font-family:'Dancing Script', cursive; font-size:22px; opacity:.9;}
+
+  .sticky-cta{
+    position:fixed; right:18px; bottom:18px; z-index:60; display:flex; flex-direction:column; gap:10px; align-items:flex-end;
+  }
+  .sticky-cta a{
+    display:flex; align-items:center; gap:8px; background:linear-gradient(135deg, #29b76b, #1f9e5b);
+    color:#fff; text-decoration:none; padding:13px 18px; border-radius:999px; font-weight:700;
+    font-size:13.5px; box-shadow:0 12px 28px rgba(31,158,91,0.4);
+  }
+  .to-top{
+    width:44px; height:44px; border-radius:50%; background:#fff; color:var(--pink-700);
+    border:1.5px solid var(--pink-300); display:flex; align-items:center; justify-content:center;
+    cursor:pointer; box-shadow:var(--shadow-sm); font-size:16px;
+    opacity:0; transform:translateY(10px); pointer-events:none; transition:all .3s ease;
+  }
+  .to-top.show{opacity:1; transform:translateY(0); pointer-events:auto;}
+
+  @media (max-width:768px){
+    .nav-links{display:none;}
+    .stats{grid-template-columns:repeat(2,1fr);}
+  }
+
+  /* ================= COMPACT MOBILE PASS ================= */
+  @media (max-width:640px){
+    html{scroll-padding-top:84px;}
+    section[id], div[id]{scroll-margin-top:84px;}
+
+    /* Nav */
+    .nav-inner{padding:10px 16px; gap:8px;}
+    .brand{gap:7px;}
+    .brand-mark{width:30px; height:30px; font-size:14px;}
+    .brand-text{font-size:13.5px;}
+    .brand-text small{font-size:8.5px;}
+    .nav-cta{padding:8px 13px; font-size:11.5px;}
+    header.nav{position:sticky;}
+
+    /* Hero */
+    .hero{padding:30px 0 34px;}
+    .kicker{font-size:10px; padding:5px 12px; margin-bottom:12px; letter-spacing:.1em;}
+    .hero h1 span{font-size:.56em; margin-top:8px;}
+    .pill-tag{font-size:12px; padding:6px 16px; margin:10px 0 14px;}
+    .hero p.lead{font-size:13.5px; margin:0 auto 22px; max-width:320px;}
+    .hero-ctas{gap:10px;}
+    .hero-ctas .btn{font-size:13px; padding:12px 20px;}
+
+    /* Stats */
+    .stats{gap:8px; margin-top:24px;}
+    .stat-card{padding:10px 6px; border-radius:12px;}
+    .stat-label{font-size:9.5px; margin-top:4px;}
+
+    /* Section shell */
+    section{padding:32px 0;}
+    section.tahsin-block{padding:26px 14px; border-radius:18px;}
+    .section-head{margin:0 auto 22px;}
+    .eyebrow{font-size:10.5px;}
+    .section-head p{font-size:13px;}
+
+    /* Requirements */
+    .req-grid{gap:10px;}
+    .req-card{padding:14px; gap:10px; border-radius:13px;}
+    .req-icon{width:30px; height:30px; font-size:13px;}
+    .req-card p{font-size:13px;}
+
+    /* Program tabs & cards */
+    .tab-bar{max-width:280px; padding:4px; margin-bottom:20px;}
+    .tab-btn{font-size:12px; padding:8px 10px;}
+    .track-note{padding:12px 14px; font-size:12px; border-radius:12px; margin-bottom:16px;}
+    .prog-grid{gap:12px;}
+    .prog-card{padding:16px; border-radius:15px;}
+    .prog-card h4{font-size:15.5px; margin:0 0 6px;}
+    .prog-card p{font-size:12.5px; margin:0 0 8px;}
+    .prog-price{font-size:11.5px; padding:4px 11px;}
+    .prog-meta{font-size:11px; margin-bottom:6px;}
+    .prog-card.popular .badge{top:10px; right:10px; font-size:9.5px; padding:2px 8px;}
+
+    /* Pricing table */
+    .price-table th{padding:10px 12px; font-size:11.5px;}
+    .price-table td{padding:10px 12px; font-size:12.5px;}
+    .price-note{font-size:11.5px; padding:8px 14px;}
+
+    /* Extra activities */
+    .extra-grid{gap:10px;}
+    .extra-card{padding:14px; border-radius:13px;}
+    .extra-card .ic{font-size:21px; margin-bottom:6px;}
+    .extra-card h4{font-size:14px;}
+    .extra-card p{font-size:12px;}
+
+    /* Accordion */
+    .accordion{gap:9px;}
+    .acc-head{padding:13px 15px;}
+    .acc-head h4{font-size:13.5px; gap:8px;}
+    .acc-body-inner{padding:0 15px 14px;}
+    .acc-body-inner li{font-size:12.5px; margin-bottom:8px;}
+
+    /* Registration wizard */
+    .reg-wrap{padding:20px 16px; border-radius:20px;}
+    .wizard-steps{margin-bottom:20px;}
+    .wiz-circle{width:26px; height:26px; font-size:11.5px;}
+    .wiz-line{width:22px; margin:0 4px;}
+    .form-grid{grid-template-columns:1fr; gap:12px;}
+    label{font-size:12px; margin-bottom:5px;}
+    input, select, textarea{padding:10px 12px; font-size:16px; border-radius:10px;}
+    textarea{min-height:60px;}
+    .form-submit, .wiz-nav .btn{font-size:13px; padding:12px;}
+    .form-hint{font-size:11px;}
+    .wiz-label{display:none;}
+    .review-box{padding:14px 16px;}
+    .review-row{flex-direction:column; gap:2px; font-size:12.5px; padding:6px 0;}
+    .review-row span:last-child{text-align:left; max-width:100%;}
+
+    /* Payment */
+    .pay-grid{gap:12px;}
+    .pay-card{padding:16px; border-radius:15px;}
+    .pay-card .ic{font-size:22px; margin-bottom:6px;}
+    .pay-card h4{font-size:14.5px;}
+    .pay-num{font-size:16px;}
+    .pay-name{font-size:11.5px;}
+    .copy-btn{font-size:10.5px; padding:5px 12px;}
+    .pay-info{font-size:12px; padding:13px 16px; border-radius:12px;}
+
+    /* Footer */
+    footer{padding:32px 0 26px;}
+    footer .quote{font-size:14.5px;}
+    footer .quote small{font-size:10.5px;}
+    footer .tg{font-size:12px; padding:7px 15px;}
+    footer .sign{font-size:17px; margin-top:16px;}
+
+    /* Floating buttons: smaller footprint, less overlap with content */
+    .sticky-cta{right:12px; bottom:calc(12px + env(safe-area-inset-bottom, 0px)); gap:8px;}
+    .sticky-cta a{padding:9px 13px; font-size:11px; gap:5px;}
+    .to-top{width:34px; height:34px; font-size:13px;}
+  }
+
+  @media (max-width:380px){
+    .hero p.lead{max-width:270px;}
+    .stats{grid-template-columns:repeat(2,1fr);}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<header class="nav">
+  <div class="nav-inner">
+    <div class="brand">
+      <div class="brand-mark">🌸</div>
+      <div class="brand-text">Tahfidz Qur'an Shafiyya<small>Program Online Khusus Muslimah</small></div>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#program" data-nav="program">Program</a></li>
+      <li><a href="#biaya" data-nav="biaya">Biaya</a></li>
+      <li><a href="#ketentuan" data-nav="ketentuan">Ketentuan</a></li>
+    </ul>
+    <a class="nav-cta" href="#daftar">Daftar Sekarang</a>
+  </div>
+  <div class="scroll-progress" id="scrollProgress"></div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="petal-field" id="petalField"></div>
+  <div class="wrap">
+    <span class="kicker reveal">Tahsin & Tahfizh Al-Qur'an Online</span>
+    <h1 class="reveal">Yuk, Mulai Perjalanan Menghafal<br>Al-Qur'an dengan Langkah yang Ringan
+      <span>Dibimbing Pengajar yang berpengalaman dan kompeten di bidangnya</span>
+    </h1>
+    <div class="pill-tag reveal">🌷 Khusus Muslimah</div>
+    <p class="lead reveal">Program Tahsin dan Tahfizh Al-Qur'an secara online, dengan setoran rutin, murojaah terarah, dan lingkungan belajar yang nyaman bersama sesama muslimah.</p>
+    <div class="hero-ctas reveal">
+      <a class="btn btn-primary" id="waHeroBtn" href="https://wa.me/6283185026129?text=Assalamu%27alaikum%2C%20saya%20ingin%20bertanya%20seputar%20Program%20Tahsin%20%26%20Tahfizh%20Qur%27an%20Shafiyya." target="_blank" rel="noopener">
+        💬 Tanya via WhatsApp
+      </a>
+      <a class="btn btn-outline" id="lihatProgramBtn" href="#program">Lihat Program</a>
+    </div>
+
+    <div class="stats">
+      <div class="stat-card reveal-scale"><div class="stat-num" data-count="8">0</div><div class="stat-label">Pilihan Program</div></div>
+      <div class="stat-card reveal-scale"><div class="stat-num" data-count="100" data-suffix="%">0%</div><div class="stat-label">Belajar Online</div></div>
+      <div class="stat-card reveal-scale"><div class="stat-num" data-count="1" data-suffix=" Bulan">0 Bulan</div><div class="stat-label">Pendampingan</div></div>
+      <div class="stat-card reveal-scale"><div class="stat-num" data-static="∞">∞</div><div class="stat-label">Bisa Diperpanjang</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== REQUIREMENTS ===== -->
+<section id="syarat">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Sebelum Mendaftar</span>
+      <h2>Syarat Mengikuti Program</h2>
+    </div>
+    <div class="req-grid">
+      <div class="req-card reveal"><div class="req-icon">🧕</div><p>Muslimah</p></div>
+      <div class="req-card reveal"><div class="req-icon">📖</div><p>Sudah bisa membaca Al-Qur'an</p></div>
+      <div class="req-card reveal"><div class="req-icon">📱</div><p>Memiliki aplikasi WhatsApp</p></div>
+      <div class="req-card reveal"><div class="req-icon">🤝</div><p>Berkomitmen mengikuti program hingga selesai</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROGRAM TABS ===== -->
+<section id="program">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Pilihan Program</span>
+      <h2>Program Tahfizh & Tahsin</h2>
+      <p>Pilih jalur yang sesuai dengan kebutuhanmu — klik tab di bawah untuk melihat masing-masing program.</p>
+    </div>
+
+    <div class="tab-bar reveal">
+      <div class="tab-indicator" id="tabIndicator"></div>
+      <button class="tab-btn active" data-tab="tahfizh" type="button">🌹 Tahfizh</button>
+      <button class="tab-btn" data-tab="tahsin" type="button">🌹 Tahsin</button>
+    </div>
+
+    <div class="tab-panel active" data-panel="tahfizh">
+      <div class="track-note">
+        <ul>
+          <li><span class="tn-ic">📍</span><span>Setoran melalui <strong>voice call</strong>; jika terkendala, bisa menggunakan <strong>voice note</strong></span></li>
+          <li><span class="tn-ic">📍</span><span>Target hafalan disesuaikan kemampuan peserta</span></li>
+          <li><span class="tn-ic">📍</span><span>Waktu setoran fleksibel</span></li>
+          <li><span class="tn-ic">📍</span><span><strong>Reguler:</strong> 3× seminggu &nbsp;·&nbsp; <strong>Intensif:</strong> Senin–Sabtu &nbsp;·&nbsp; <strong>Weekend:</strong> Sabtu & Minggu</span></li>
+        </ul>
+      </div>
+      <div class="prog-grid">
+        <div class="prog-card">
+          <div class="prog-meta">Maks. 2 lembar/hari</div>
+          <h4>Tahfizh Ziyadah</h4>
+          <p>Untuk muslimah yang ingin menambah hafalan baru. Setoran maksimal 2 lembar per hari.</p>
+          <span class="prog-price">Reguler Rp50.000 · Intensif Rp100.000</span>
+        </div>
+        <div class="prog-card popular">
+          <span class="badge">Favorit</span>
+          <div class="prog-meta">Maks. 5 lembar/hari</div>
+          <h4>Tahfizh Muroja'ah / Mutqin</h4>
+          <p>Untuk muslimah yang ingin mengulang dan memperkuat kualitas hafalan. Bisa diuji per ayat per hari atau setoran maksimal 5 lembar per hari.</p>
+          <span class="prog-price">Reguler Rp95.000 · Intensif Rp180.000</span>
+        </div>
+        <div class="prog-card">
+          <div class="prog-meta">Sabtu & Minggu</div>
+          <h4>Tahfizh Weekend</h4>
+          <p>Untuk muslimah yang ingin menambah/mengulang hafalan. Setoran setiap Sabtu & Minggu, 1× setoran maksimal 2 lembar.</p>
+          <span class="prog-price">Rp35.000 / bulan</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-panel" data-panel="tahsin">
+      <div class="track-note">
+        <ul>
+          <li><span class="tn-ic">📌</span><span>Materi berupa video / gambar / audio</span></li>
+          <li><span class="tn-ic">📌</span><span>Belajar dimulai dari surat Al-Fatihah, lalu surat-surat pendek juz 30, serta materi ringkas tajwid, makharijul huruf & sifatul huruf</span></li>
+          <li><span class="tn-ic">📌</span><span>Peserta yang tidak hadir tanpa keterangan lebih dari 4× pertemuan dinyatakan gugur</span></li>
+        </ul>
+      </div>
+      <div class="prog-grid">
+        <div class="prog-card">
+          <div class="prog-meta">2× seminggu · Senin–Jumat</div>
+          <h4>Tahsin Reguler</h4>
+          <p>Contoh & cara membaca Al-Fatihah dan surat pendek yang benar. Peserta menyetorkan bacaan via voice note ke grup dan dikoreksi Pengajar.</p>
+          <span class="prog-price">Rp50.000 / bulan</span>
+        </div>
+        <div class="prog-card">
+          <div class="prog-meta">1× seminggu via Gmeet/Zoom</div>
+          <h4>Tahsin Intensif / Privat</h4>
+          <p>Materi Al-Fatihah, surat pendek & makhraj yang benar. Setoran privat via voice call WhatsApp (2×/minggu) + kelas tajwid & praktik bacaan. InsyaAllah tersedia modul belajar.</p>
+          <span class="prog-price">Rp100.000 / bulan</span>
+        </div>
+        <div class="prog-card">
+          <div class="prog-meta">2× seminggu · ±20–30 menit</div>
+          <h4>Tahsin Anak</h4>
+          <p>Untuk anak yang ingin belajar/memperbaiki bacaan Al-Qur'an. Latihan makhraj / Iqro', talaqqi Al-Fatihah & surat pendek, ujian dan laporan perkembangan bulanan. Waktu fleksibel.</p>
+          <span class="prog-price">Rp100.000 / bulan</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PRICING ===== -->
+<section id="biaya">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Investasi Belajar</span>
+      <h2>Biaya Bulanan</h2>
+      <p>Pendampingan 1 bulan, dan bisa dilanjutkan di bulan berikutnya 🌱</p>
+    </div>
+    <table class="price-table reveal">
+      <thead>
+        <tr><th>Program</th><th style="text-align:right;">Biaya / Bulan</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Tahfizh Ziyadah Reguler</td><td class="amount">Rp50.000</td></tr>
+        <tr><td>Tahfizh Ziyadah Intensif</td><td class="amount">Rp100.000</td></tr>
+        <tr><td>Tahfizh Muroja'ah / Mutqin Reguler</td><td class="amount">Rp95.000</td></tr>
+        <tr><td>Tahfizh Muroja'ah / Mutqin Intensif</td><td class="amount">Rp180.000</td></tr>
+        <tr><td>Tahfizh Weekend</td><td class="amount">Rp35.000</td></tr>
+        <tr><td>Tahsin Reguler</td><td class="amount">Rp50.000</td></tr>
+        <tr><td>Tahsin Intensif / Privat</td><td class="amount">Rp100.000</td></tr>
+        <tr><td>Tahsin Anak</td><td class="amount">Rp100.000</td></tr>
+      </tbody>
+    </table>
+    <div class="price-note-wrap">
+      <div class="price-note reveal">🌷 Boleh mendaftar lebih dari satu program, selama kuota masih tersedia</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== EXTRA ACTIVITIES ===== -->
+<section id="fasilitas">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">InsyaAllah</span>
+      <h2>Kegiatan Tambahan</h2>
+    </div>
+    <div class="extra-grid">
+      <div class="extra-card reveal">
+        <div class="ic">🎓</div>
+        <h4>E-Sertifikat</h4>
+        <p>Diberikan di akhir program bagi peserta yang berhak.</p>
+      </div>
+      <div class="extra-card reveal">
+        <div class="ic">💬</div>
+        <h4>Grup WhatsApp</h4>
+        <p>Lingkungan belajar yang nyaman bersama sesama muslimah.</p>
+      </div>
+      <div class="extra-card reveal">
+        <div class="ic">✅</div>
+        <h4>Checklist Harian</h4>
+        <p>Memantau progres setoran dan murojaah setiap hari.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TERMS (accordion) ===== -->
+<section id="ketentuan">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Perlu Diketahui</span>
+      <h2>Ketentuan Program Tahfizh</h2>
+      <p>Klik tiap bagian untuk melihat detailnya.</p>
+    </div>
+    <div class="accordion reveal">
+      <div class="acc-item open">
+        <div class="acc-head">
+          <h4>🗓️ Jadwal & Cara Setoran</h4>
+          <span class="acc-chevron">▾</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-body-inner">
+            <ul>
+              <li>Setoran menggunakan voice call/telepon WhatsApp secara privat dengan Pengajar. Jika terkendala, bisa menggunakan voice note yang dikirim kepada Pengajar.</li>
+              <li>Target hafalan disesuaikan dengan kemampuan masing-masing peserta.</li>
+              <li>Tahfizh Ziyadah Reguler: 3× seminggu &nbsp;·&nbsp; Tahfizh Ziyadah Intensif: Senin–Sabtu</li>
+              <li>Tahfizh Muroja'ah Reguler: 3× seminggu &nbsp;·&nbsp; Tahfizh Muroja'ah Intensif: Senin–Sabtu</li>
+              <li>Tahfizh Weekend: Sabtu & Minggu</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-head">
+          <h4>📦 Batas Setoran & Ujian Rutin</h4>
+          <span class="acc-chevron">▾</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-body-inner">
+            <ul>
+              <li>Hafalan yang sudah disetor akan diuji 1 pertanyaan sambung ayat pada pertemuan berikutnya.</li>
+              <li>Batas setoran per hari: Tahfizh Weekend & Tahfizh Ziyadah maksimal 2 lembar, Tahfizh Muroja'ah maksimal 5 lembar.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-head">
+          <h4>🎓 Ujian Kenaikan & Sertifikat</h4>
+          <span class="acc-chevron">▾</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-body-inner">
+            <ul>
+              <li>Sertifikat diberikan kepada peserta yang mengikuti ujian akhir.</li>
+              <li><strong>Ujian Kenaikan Juz</strong> (untuk Ziyadah): bagi yang sudah menyetor 1 juz, diuji 5 pertanyaan sambung ayat.</li>
+              <li><strong>Ujian Kenaikan Tingkat</strong> (untuk Muroja'ah): bagi yang sudah menyetor 5 juz, diuji 7 pertanyaan sambung kalimat.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== REGISTRATION WIZARD ===== -->
+<section id="daftar">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Yuk Gabung</span>
+      <h2>Form Pendaftaran</h2>
+      <p>Isi 3 langkah singkat berikut — data akan otomatis dirangkai menjadi pesan WhatsApp ke admin.</p>
+    </div>
+
+    <div class="reg-wrap reveal">
+      <div class="wizard-steps">
+        <div class="wiz-step active" data-step="1">
+          <div class="wiz-circle">1</div><span class="wiz-label">Data Diri</span>
+        </div>
+        <div class="wiz-line"></div>
+        <div class="wiz-step" data-step="2">
+          <div class="wiz-circle">2</div><span class="wiz-label">Program</span>
+        </div>
+        <div class="wiz-line"></div>
+        <div class="wiz-step" data-step="3">
+          <div class="wiz-circle">3</div><span class="wiz-label">Review</span>
+        </div>
+      </div>
+
+      <form id="regForm" novalidate>
+        <!-- STEP 1 -->
+        <div class="wiz-panel active" data-panel="1">
+          <div class="form-grid">
+            <div class="full">
+              <label for="nama">Nama Lengkap *</label>
+              <input type="text" id="nama" placeholder="Nama kamu">
+            </div>
+            <div>
+              <label for="wa">No. WhatsApp *</label>
+              <input type="tel" id="wa" placeholder="08xxxxxxxxxx">
+            </div>
+            <div>
+              <label for="usia">Usia *</label>
+              <input type="number" id="usia" min="1" placeholder="Contoh: 20">
+            </div>
+            <div>
+              <label for="domisili">Domisili *</label>
+              <input type="text" id="domisili" placeholder="Kota tempat tinggal">
+            </div>
+            <div>
+              <label for="pekerjaan">Pekerjaan</label>
+              <input type="text" id="pekerjaan" placeholder="Contoh: Mahasiswi">
+            </div>
+          </div>
+          <div class="wiz-nav">
+            <button type="button" class="btn btn-primary" data-next="2" style="margin-left:auto;">Lanjut →</button>
+          </div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="wiz-panel" data-panel="2">
+          <div class="form-grid">
+            <div class="full">
+              <label for="programPilihan">Program yang Diminati *</label>
+              <select id="programPilihan">
+                <option value="" disabled selected>Pilih program</option>
+                <option>Tahfizh Ziyadah Reguler</option>
+                <option>Tahfizh Ziyadah Intensif</option>
+                <option>Tahfizh Muroja'ah/Mutqin Reguler</option>
+                <option>Tahfizh Muroja'ah/Mutqin Intensif</option>
+                <option>Tahfizh Weekend</option>
+                <option>Tahsin Reguler</option>
+                <option>Tahsin Intensif/Privat</option>
+                <option>Tahsin Anak</option>
+                <option>Lebih dari satu program</option>
+              </select>
+            </div>
+            <div class="full">
+              <label for="hari">Hari Setoran / Belajar</label>
+              <input type="text" id="hari" placeholder="Contoh: Senin, Rabu, Jumat">
+            </div>
+            <div class="full">
+              <label for="motivasi">Motivasi Mengikuti Program</label>
+              <textarea id="motivasi" placeholder="Ceritakan sedikit motivasimu..."></textarea>
+            </div>
+            <div class="full">
+              <label for="sumber">Mengetahui Program Ini Dari Mana?</label>
+              <input type="text" id="sumber" placeholder="Contoh: Instagram, teman, dsb.">
+            </div>
+          </div>
+          <div class="wiz-nav">
+            <button type="button" class="btn btn-ghost" data-back="1">← Kembali</button>
+            <button type="button" class="btn btn-primary" data-next="3">Lanjut →</button>
+          </div>
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="wiz-panel" data-panel="3">
+          <div class="review-box" id="reviewBox"></div>
+          <div class="form-msg" id="formMsg"></div>
+          <div class="wiz-nav">
+            <button type="button" class="btn btn-ghost" data-back="2">← Kembali</button>
+            <button type="submit" class="btn btn-primary">🌸 Kirim via WhatsApp</button>
+          </div>
+        </div>
+      </form>
+      <p class="form-hint">Tombol terakhir akan membuka WhatsApp dengan data kamu yang sudah terisi otomatis, dikirim ke admin pendaftaran.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PAYMENT ===== -->
+<section id="pembayaran">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Setelah Mendaftar</span>
+      <h2>Pembayaran Biaya Bulanan</h2>
+      <p>Silakan lakukan pembayaran sesuai program yang diminati ke salah satu rekening berikut:</p>
+    </div>
+    <div class="pay-grid">
+      <div class="pay-card reveal">
+        <div class="ic">💚</div>
+        <h4>Top Up GoPay</h4>
+        <div class="pay-num">0838-7852-8710</div>
+        <div class="pay-name">a.n. Alfi Fauziah / Dian Ayu F</div>
+        <button type="button" class="copy-btn" data-copy="083878528710">Salin Nomor</button>
+      </div>
+      <div class="pay-card reveal">
+        <div class="ic">🏦</div>
+        <h4>Bank BSI</h4>
+        <div class="pay-num">7237055548</div>
+        <div class="pay-name">a.n. Alfi Fauziah</div>
+        <button type="button" class="copy-btn" data-copy="7237055548">Salin Nomor</button>
+      </div>
+    </div>
+    <div class="pay-info reveal">
+      🌸 Jika mengalami kendala pembayaran, silakan konfirmasi ke admin ya.<br>
+      Jangan lupa kirim <strong>bukti transfer</strong> setelah melakukan pembayaran. Baarakallahu fiik 💐
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="wrap">
+    <p class="quote reveal">"Sebaik-baik kalian adalah yang belajar Al-Qur'an dan mengajarkannya"
+      <small>HR. Bukhari</small>
+    </p>
+    <a class="tg" href="https://www.instagram.com/tahfidzquranshafiyya" target="_blank" rel="noopener">📸 @tahfidzquranshafiyya</a>
+    <p class="sign">Pelan-pelan saja, yang penting istiqomah 🤍</p>
+  </div>
+</footer>
+
+<div class="sticky-cta">
+  <button class="to-top" id="toTopBtn" type="button" aria-label="Kembali ke atas">↑</button>
+  <a href="#daftar">📝 Daftar</a>
+</div>
+
+<script>
+  /* ---------------- Floating petals ---------------- */
+  (function initPetals(){
+    const field = document.getElementById('petalField');
+    const emojis = ['🌸','🌺','🌷','🌸','💮'];
+    const count = 14;
+    for(let i=0;i<count;i++){
+      const p = document.createElement('span');
+      p.className = 'petal';
+      p.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+      p.style.left = Math.random()*100 + '%';
+      p.style.fontSize = (12 + Math.random()*14) + 'px';
+      p.style.setProperty('--drift', (Math.random()*80 - 40) + 'px');
+      p.style.animationDuration = (7 + Math.random()*6) + 's';
+      p.style.animationDelay = (Math.random()*8) + 's';
+      field.appendChild(p);
+    }
+  })();
+
+  /* ---------------- Scroll reveal ---------------- */
+  (function initReveal(){
+    const items = document.querySelectorAll('.reveal, .reveal-scale');
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.classList.add('in-view');
+          io.unobserve(entry.target);
+        }
+      });
+    }, {threshold:0.15, rootMargin:'0px 0px -40px 0px'});
+    items.forEach(el=>io.observe(el));
+  })();
+
+  /* ---------------- Animated stat counters ---------------- */
+  (function initCounters(){
+    const nums = document.querySelectorAll('.stat-num[data-count]');
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(!entry.isIntersecting) return;
+        const el = entry.target;
+        const target = parseInt(el.getAttribute('data-count'), 10);
+        const suffix = el.getAttribute('data-suffix') || '';
+        const duration = 1100;
+        const start = performance.now();
+        function tick(now){
+          const progress = Math.min((now-start)/duration, 1);
+          const eased = 1 - Math.pow(1-progress, 3);
+          const val = Math.round(target*eased);
+          el.textContent = val + suffix;
+          if(progress < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+        io.unobserve(el);
+      });
+    }, {threshold:0.4});
+    nums.forEach(el=>io.observe(el));
+  })();
+
+  /* ---------------- Scroll progress + scrollspy + back-to-top ---------------- */
+  (function initScrollFx(){
+    const progressBar = document.getElementById('scrollProgress');
+    const toTop = document.getElementById('toTopBtn');
+    const navLinks = document.querySelectorAll('.nav-links a[data-nav]');
+    const targets = Array.from(navLinks).map(a=>document.getElementById(a.dataset.nav)).filter(Boolean);
+
+    function onScroll(){
+      const doc = document.documentElement;
+      const scrollTop = doc.scrollTop || document.body.scrollTop;
+      const max = doc.scrollHeight - doc.clientHeight;
+      const pct = max > 0 ? (scrollTop/max)*100 : 0;
+      progressBar.style.width = pct + '%';
+
+      toTop.classList.toggle('show', scrollTop > 480);
+
+      let current = null;
+      targets.forEach(sec=>{
+        const rect = sec.getBoundingClientRect();
+        if(rect.top <= 140 && rect.bottom >= 140) current = sec.id;
+      });
+      navLinks.forEach(a=>a.classList.toggle('active', a.dataset.nav === current));
+    }
+    document.addEventListener('scroll', onScroll, {passive:true});
+    onScroll();
+
+    toTop.addEventListener('click', ()=>window.scrollTo({top:0, behavior:'smooth'}));
+  })();
+
+  /* ---------------- Program tabs ---------------- */
+  (function initTabs(){
+    const buttons = document.querySelectorAll('.tab-btn');
+    const panels = document.querySelectorAll('.tab-panel');
+    const indicator = document.getElementById('tabIndicator');
+
+    buttons.forEach((btn, idx)=>{
+      btn.addEventListener('click', ()=>{
+        buttons.forEach(b=>b.classList.remove('active'));
+        panels.forEach(p=>p.classList.remove('active'));
+        btn.classList.add('active');
+        document.querySelector('.tab-panel[data-panel="'+btn.dataset.tab+'"]').classList.add('active');
+        indicator.style.transform = 'translateX(' + (idx*100) + '%)';
+      });
+    });
+  })();
+
+  /* ---------------- Terms accordion ---------------- */
+  (function initAccordion(){
+    const items = document.querySelectorAll('.acc-item');
+    function setHeight(item){
+      const body = item.querySelector('.acc-body');
+      body.style.maxHeight = item.classList.contains('open') ? body.scrollHeight + 'px' : '0px';
+    }
+    items.forEach(item=>{
+      setHeight(item);
+      item.querySelector('.acc-head').addEventListener('click', ()=>{
+        item.classList.toggle('open');
+        setHeight(item);
+      });
+    });
+    window.addEventListener('resize', ()=>items.forEach(setHeight));
+  })();
+
+  /* ---------------- Button ripple ---------------- */
+  (function initRipple(){
+    document.querySelectorAll('.btn').forEach(btn=>{
+      btn.addEventListener('click', function(e){
+        const rect = btn.getBoundingClientRect();
+        const span = document.createElement('span');
+        const size = Math.max(rect.width, rect.height);
+        span.className = 'ripple';
+        span.style.width = span.style.height = size + 'px';
+        span.style.left = (e.clientX - rect.left - size/2) + 'px';
+        span.style.top = (e.clientY - rect.top - size/2) + 'px';
+        btn.appendChild(span);
+        setTimeout(()=>span.remove(), 650);
+      });
+    });
+  })();
+
+  /* ---------------- Copy payment number ---------------- */
+  (function initCopy(){
+    document.querySelectorAll('.copy-btn').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const val = btn.getAttribute('data-copy');
+        const original = btn.textContent;
+        function done(ok){
+          btn.textContent = ok ? 'Tersalin ✓' : 'Nomor: ' + val;
+          setTimeout(()=>btn.textContent = original, 1600);
+        }
+        if(navigator.clipboard && navigator.clipboard.writeText){
+          navigator.clipboard.writeText(val).then(()=>done(true)).catch(()=>done(false));
+        } else {
+          done(false);
+        }
+      });
+    });
+  })();
+
+  /* ---------------- Registration wizard ---------------- */
+  (function initWizard(){
+    const form = document.getElementById('regForm');
+    const steps = document.querySelectorAll('.wiz-step');
+    const panels = document.querySelectorAll('.wiz-panel');
+    const msg = document.getElementById('formMsg');
+    const reviewBox = document.getElementById('reviewBox');
+    const ADMIN_WA = '6283185026129';
+
+    const fields = {
+      nama: document.getElementById('nama'),
+      wa: document.getElementById('wa'),
+      usia: document.getElementById('usia'),
+      domisili: document.getElementById('domisili'),
+      pekerjaan: document.getElementById('pekerjaan'),
+      program: document.getElementById('programPilihan'),
+      hari: document.getElementById('hari'),
+      motivasi: document.getElementById('motivasi'),
+      sumber: document.getElementById('sumber')
+    };
+
+    function goToStep(n){
+      panels.forEach(p=>p.classList.toggle('active', p.dataset.panel === String(n)));
+      steps.forEach(s=>{
+        const sNum = parseInt(s.dataset.step,10);
+        s.classList.toggle('active', sNum === n);
+        s.classList.toggle('done', sNum < n);
+      });
+      if(n === 3) buildReview();
+    }
+
+    function markError(el){
+      el.classList.add('error');
+      el.addEventListener('input', function clear(){ el.classList.remove('error'); el.removeEventListener('input', clear); }, {once:true});
+    }
+
+    function validateStep1(){
+      let ok = true;
+      [fields.nama, fields.wa, fields.usia, fields.domisili].forEach(el=>{
+        if(!el.value.trim()){ markError(el); ok = false; }
+      });
+      return ok;
+    }
+    function validateStep2(){
+      let ok = true;
+      if(!fields.program.value){ markError(fields.program); ok = false; }
+      return ok;
+    }
+
+    function buildReview(){
+      const rows = [
+        ['Nama', fields.nama.value.trim()],
+        ['No. WhatsApp', fields.wa.value.trim()],
+        ['Usia', fields.usia.value.trim()],
+        ['Domisili', fields.domisili.value.trim()],
+        ['Pekerjaan', fields.pekerjaan.value.trim() || '-'],
+        ['Program', fields.program.value || '-'],
+        ['Hari Setoran', fields.hari.value.trim() || '-'],
+        ['Motivasi', fields.motivasi.value.trim() || '-'],
+        ['Sumber Info', fields.sumber.value.trim() || '-']
+      ];
+      reviewBox.innerHTML = rows.map(r=>
+        '<div class="review-row"><span>'+r[0]+'</span><span>'+ (r[1] ? escapeHtml(r[1]) : '-') +'</span></div>'
+      ).join('');
+    }
+
+    function escapeHtml(str){
+      const d = document.createElement('div');
+      d.textContent = str;
+      return d.innerHTML;
+    }
+
+    form.querySelectorAll('[data-next]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const target = parseInt(btn.getAttribute('data-next'), 10);
+        if(target === 2 && !validateStep1()){
+          msg.textContent = '';
+          return;
+        }
+        if(target === 3 && !validateStep2()) return;
+        goToStep(target);
+      });
+    });
+    form.querySelectorAll('[data-back]').forEach(btn=>{
+      btn.addEventListener('click', ()=>goToStep(parseInt(btn.getAttribute('data-back'),10)));
+    });
+
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      if(!validateStep1()){ goToStep(1); return; }
+      if(!validateStep2()){ goToStep(2); return; }
+
+      const lines = [
+        'Assalamu\'alaikum, saya ingin mendaftar program Tahsin & Tahfizh Qur\'an Shafiyya:',
+        '',
+        'Nama: ' + fields.nama.value.trim(),
+        'No. WhatsApp: ' + fields.wa.value.trim(),
+        'Usia: ' + fields.usia.value.trim(),
+        'Domisili: ' + fields.domisili.value.trim(),
+        'Pekerjaan: ' + (fields.pekerjaan.value.trim() || '-'),
+        'Program yang diminati: ' + fields.program.value,
+        'Hari setoran: ' + (fields.hari.value.trim() || '-'),
+        'Motivasi mengikuti program: ' + (fields.motivasi.value.trim() || '-'),
+        'Mengetahui program ini dari: ' + (fields.sumber.value.trim() || '-')
+      ];
+
+      const text = encodeURIComponent(lines.join('\n'));
+      msg.textContent = 'Data siap dikirim! Melanjutkan ke WhatsApp...';
+      msg.classList.add('show');
+      window.open('https://wa.me/' + ADMIN_WA + '?text=' + text, '_blank');
+    });
+  })();
+</script>
+
+</body>
+</html>
